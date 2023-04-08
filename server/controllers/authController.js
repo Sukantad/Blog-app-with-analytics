@@ -6,9 +6,9 @@ const authController = {
   // registration part
   register: async (req, res) => {
     try {
-      const { name, email, password, gender } = req.body;
+      const { name, email, password, bio } = req.body;
 
-      const user_email = await Users.findOne({ email });
+      const user_email = await Users.findOne({ email:email });
       if (user_email)
         return res.status(400).send({
           message: "This email already exists, please type a unique email id.",
@@ -25,7 +25,7 @@ const authController = {
         name,
         email,
         password: passwordHashed,
-        gender,
+        bio,
       });
 
       const accessToken = createToken({ id: newUser._id });
@@ -35,9 +35,6 @@ const authController = {
       res.send({
         message: "Register Success!",
         accessToken,
-        user: {
-          ...newUser._doc,
-        },
       });
     } catch (err) {
       return res.status(500).send({ message: err.message });
@@ -50,10 +47,7 @@ const authController = {
     try {
       const { email, password } = req.body;
 
-      const user = await Users.findOne({ email }).populate(
-        "followers following",
-        "profile username name followers following"
-      );
+      const user = await Users.findOne({ email: email });
 
       if (!user)
         return res.status(400).send({ message: "This email does not exist." });
