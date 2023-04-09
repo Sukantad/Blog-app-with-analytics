@@ -63,18 +63,7 @@ function CreatePost() {
         <div>
             <Box style={style}>
                 <form onSubmit={handleSubmit}>
-                    {/* <TextField
-                        id="user_id"
-                        label="User ID"
-                        variant="outlined"
-                        fullWidth
-                        width='100%'
-                        autoFocus
-                        name='user_id'
-                        value={user_id}
-                        onChange={handleChange}
-                        required
-                    /> */}
+                   
                     <Input type='file'
                         id="image"
                         label="Image"

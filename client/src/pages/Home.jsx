@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios'
 import { addLike, createPost, disLike, getAllPost } from '../utils/Api';
 import { Box, Button, Card, CardContent, CardMedia, Input, Modal, TextField, Typography } from '@mui/material';
-import PostCard from './PostCard';
 import { Link } from 'react-router-dom';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
@@ -11,19 +10,19 @@ import { CardActionArea } from '@mui/material';
 
 function Home() {
     const [post, setPost] = useState([]);
-    const [update , setUpdate]=React.useState(false);
+    const [update, setUpdate] = React.useState(false);
 
 
     async function FetchAllPost() {
         var data = await getAllPost();
         setPost(data.post);
-      
+
     }
 
     const handleLike = async (id) => {
         try {
             const res = await addLike(id);
-            setUpdate((prev)=>!prev)
+            setUpdate((prev) => !prev)
         } catch (error) {
             console.log(error);
         }
@@ -32,7 +31,7 @@ function Home() {
     const handleDislike = async (id) => {
         try {
             await disLike(id);
-            setUpdate((prev)=>!prev)
+            setUpdate((prev) => !prev)
         } catch (error) {
             console.log(error);
         }
@@ -51,19 +50,19 @@ function Home() {
 
             {
                 post?.map((data, i) => (
-                    <Box width={'50%'} margin={'auto'} marginTop='20px' key={Math.random()+i}>
+                    <Box width={{ sm: "90%", md: "70%", lg: "60%", xl: "50%" }} margin={'auto'} marginTop='20px' key={Math.random() + i}>
                         <Card width={'250px'}>
                             <CardActionArea >
                                 <Typography gutterBottom variant="h" p={'15px'} component="div">
                                     {data.content}
                                 </Typography>
-                                <CardMedia
+                                {data?.image != null ? <CardMedia
                                     component="img"
                                     height="250px"
 
                                     image={data.image}
                                     alt="green iguana"
-                                />
+                                /> : ""}
                                 <CardContent>
                                     <Box> Author: - {data.author} </Box>
                                     <br />
