@@ -12,7 +12,11 @@ const postSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    likes: [{ type: mongoose.Types.ObjectId, ref: "user" }],
+    likes: {
+      type:Number,
+      default:0,
+      min:0
+    }
   },
   {
     timestamps: true,
