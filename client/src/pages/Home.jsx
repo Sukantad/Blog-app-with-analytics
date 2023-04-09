@@ -14,7 +14,7 @@ function Home() {
     async function FetchAllPost() {
         var data = await getAllPost();
         setPost(data.post);
-        console.log("it's")
+        console.log("it's", data.post)
     }
 
 

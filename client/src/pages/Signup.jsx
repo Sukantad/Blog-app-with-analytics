@@ -32,9 +32,7 @@ const theme = createTheme();
 export default function Signup() {
     const [email, setEmail] = React.useState('');
 
-    const dispatch = useDispatch();
-    const Navi=useNavigate();
-        const { token } = useSelector((state) => state.AuthState);
+    const Navi = useNavigate();
 
     const handleSubmit = async (event) => {
 
@@ -44,15 +42,18 @@ export default function Signup() {
             name: data.get('name'),
             email: data.get('email'),
             password: data.get('password'),
+            bio: data.get('bio')
         }
         try {
             const res = await axios.post("http://localhost:4000/users", postdata)
             console.log(res.data, "data");
-            dispatch(setAuth(res.data.accessToken))
-            if(token){
-        return <Navi to='/'/>
-    }
-        
+            const ss = localStorage.setItem("userId", res?.data.Id)
+            const userId = localStorage.getItem("userId") || null;
+
+            if (userId) {
+                return <Navi to='/' />
+            }
+
         } catch (error) {
             console.log(error, "while signup")
         }
@@ -62,10 +63,10 @@ export default function Signup() {
     const validateEmail = (value) => {
         const emailRegex = /\S+@\S+\.\S+/;
         if (!emailRegex.test(value)) {
-          return 'Invalid email address ';
+            return 'Invalid email address ';
         }
         return '';
-      };
+    };
 
 
     return (
@@ -96,6 +97,7 @@ export default function Signup() {
                             id="name"
                             autoComplete="name"
                             autoFocus
+                            inputProps={{ maxLength: 50 }}
                         />
                         <TextField
                             margin="normal"
@@ -111,6 +113,18 @@ export default function Signup() {
 
                         />
 
+
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="bio"
+                            label="Bio"
+                            type="text"
+                            id="bio"
+                            autoComplete="current-bio"
+                            inputProps={{ maxLength: 200 }}
+                        />
                         <TextField
                             margin="normal"
                             required
@@ -127,6 +141,7 @@ export default function Signup() {
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
+
                             Sign Up
                         </Button>
                         <Grid container>

@@ -19,14 +19,23 @@ const style = {
 };
 
 function CreatePost() {
+    const userId = localStorage.getItem("userId") || null;
+    console.log(userId, "id")
     const navigate = useNavigate();
-    const [postInput, setPostInput] = useState({ user_id: "", content: "", image: "" });
+    const [postInput, setPostInput] = useState({ user_id: userId, content: "", image: "" });
     const [photo, setPhoto] = useState("")
 
 
     async function CreateSinglePost(data) {
-        var res = await createPost(data);
-        console.log(res.data, "res")
+        
+        try {
+            var res = await createPost(data);
+            console.log(res.data, "res")
+        } catch (error) {
+            console.log(error);
+        }
+
+
     }
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -35,21 +44,26 @@ function CreatePost() {
 
     async function handleSubmit(event) {
         event.preventDefault();
-        const data = new FormData();
-        data.append("file", photo);
-        data.append("upload_preset", "social_media");
-        const res = photo && await axios.post("https://api.cloudinary.com/v1_1/dz84rrvfb/image/upload", data)
-        postInput.image = res?.data?.secure_url
-        CreateSinglePost(postInput)
-        navigate('/')
+        try {
+            const data = new FormData();
+            data.append("file", photo);
+            data.append("upload_preset", "newSocial");
+            const res = photo && await axios.post("https://api.cloudinary.com/v1_1/dcx9zatx4/image/upload", data)
+            postInput.image = res?.data?.secure_url
+            CreateSinglePost(postInput)
+            navigate('/')
+        } catch (error) {
+               console.log(error);
+        }
+
     }
 
-    const { user_id, content } = postInput;
+    const { content,user_id } = postInput;
     return (
         <div>
             <Box style={style}>
                 <form onSubmit={handleSubmit}>
-                    <TextField
+                    {/* <TextField
                         id="user_id"
                         label="User ID"
                         variant="outlined"
@@ -60,7 +74,7 @@ function CreatePost() {
                         value={user_id}
                         onChange={handleChange}
                         required
-                    />
+                    /> */}
                     <Input type='file'
                         id="image"
                         label="Image"

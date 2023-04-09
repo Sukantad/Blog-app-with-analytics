@@ -3,12 +3,12 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
 const PrivateRoute = ({ children }) => {
-   const { token } = useSelector((state) => state.AuthState);
+   const userId = localStorage.getItem("userId") || null;
 
 
-  if (token) {
-    return <Navigate to="/signup" />;
-  }
+  // if (userId) {
+  //   return <Navigate to="/signup" />;
+  // }
   return children;
 };
 

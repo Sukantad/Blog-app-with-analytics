@@ -22,11 +22,13 @@ function PostCard({ data }) {
                         alt="green iguana"
                     />
                     <CardContent>
-
+                        <Box> Author: - {data.author} </Box>
+                        <br />
                         <Typography variant="body2" color="text.secondary" display="flex">
                             <Box>    <ThumbUpOffAltIcon /></Box>
                             <Box marginLeft={'10px'}> <ThumbDownOffAltIcon /></Box>
                         </Typography>
+                         <Box> {data.likes}</Box>
                     </CardContent>
                 </CardActionArea>
             </Card>

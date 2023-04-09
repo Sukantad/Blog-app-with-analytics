@@ -7,6 +7,7 @@ import PrivateRoute from "./PrivateRoute";
 import UserAnalytics from "../pages/UserAnalytics";
 import PostAnalytics from "../pages/PostAnalytics";
 import CreatePost from "../pages/CreatePost";
+import UserList from "../pages/UserList";
 
 function AllRoutes() {
   return (
@@ -33,6 +34,7 @@ function AllRoutes() {
         
         <Route path="/analytics/posts" element={<PostAnalytics />}></Route>
         <Route path="/createpost" element={<CreatePost />}></Route>
+        <Route path="/userlist" element={<UserList />}></Route>
       </Routes>
     </div>
   );

@@ -25,6 +25,8 @@ function Navbar() {
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                             <Link to='/' style={{ textDecoration: 'none', color:'white' }}>   Social friends </Link>
                         </Typography>
+                        <Link to="userlist" style={{ textDecoration: 'none', color:'white' }}> <Button color="inherit" >  User List </Button></Link>
+
                         <Link to="/analytics/users" style={{ textDecoration: 'none', color:'white' }}> <Button color="inherit" >  User Analytics </Button></Link>
                         <Button color="inherit"> <Link to="/analytics/posts" style={{ textDecoration: 'none', color:'white' }}> Post Analytics</Link></Button>
                     </Toolbar>
