@@ -47,8 +47,8 @@ function CreatePost() {
         try {
             const data = new FormData();
             data.append("file", photo);
-            data.append("upload_preset", "newSocial");
-            const res = photo && await axios.post("https://api.cloudinary.com/v1_1/dcx9zatx4/image/upload", data)
+            data.append("upload_preset", "social_media");
+            const res = photo && await axios.post("https://api.cloudinary.com/v1_1/dz84rrvfb/image/upload", data)
             postInput.image = res?.data?.secure_url
             CreateSinglePost(postInput)
             navigate('/')

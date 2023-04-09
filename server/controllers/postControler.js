@@ -1,14 +1,18 @@
 const PostModel = require("../models/postModel");
+const Users = require("../models/userModel");
 
 require("dotenv").config();
 const newPost = async (req, res) => {
   try {
     const { content, user_id, image } = req.body;
-
+    let temp = await Users.find({ _id: user_id });
+    let author = temp[0].name;
+    console.log(author);
     const new_Post = new PostModel({
       user_id,
       content,
       image,
+      author,
     });
 
     await new_Post.save();
@@ -90,33 +94,41 @@ const getAllPost = async (req, res) => {
 };
 
 const likePostById = async (req, res) => {
-  let { id } = req.params;
-  let { likes } = req.body;
+  const { id } = req.params;
   try {
-    let Post = await PostModel.findByIdAndUpdate(id, { likes }, { new: true });
-    if (!Post) {
-      return res.status(404).send({ message: "You can't unlike less than 0" });
+    let post = await PostModel.findById(id);
+
+    if (!post) {
+      return res.status(404).send({ message: "Post not found" });
     }
-    return res.status(200).send(Post);
+
+    let likedPost = await PostModel.findByIdAndUpdate(id, {
+      likes: post.likes + 1,
+    });
+    return res
+      .status(200)
+      .send({ message: "You have liked a post", likedPost });
   } catch (error) {
-    console.log(error, "error while like the post");
+    res.status(500).send(error);
   }
 };
 
 const unLikePostById = async (req, res) => {
   let { id } = req.params;
-  let { likes } = req.body;
   try {
-    let Post;
-    if (likes >= 0) {
-      Post = await PostModel.findByIdAndUpdate(id, { likes }, { new: true });
+    let post = await PostModel.findById(id);
+    if (!post) {
+      return res.status(404).send({ message: "Post not found" });
     }
-    if (!Post) {
-      return res.status(404).send({ message: "Post is not exists" });
+    if (post.likes > 0) {
+      let likedPost = await PostModel.findByIdAndUpdate(id, {
+        likes: post.likes - 1,
+      });
     }
-    return res.status(200).send({ message: "unliked Post", Post });
+
+    return res.status(200).send({ message: "You have disliked" });
   } catch (error) {
-    console.log(error, "error while dislike the post");
+    res.status(500).send(error);
   }
 };
 
@@ -128,5 +140,5 @@ module.exports = {
   newPost,
   likePostById,
   unLikePostById,
-  mostLikedpost
+  mostLikedpost,
 };

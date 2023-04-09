@@ -14,8 +14,8 @@ postRouter.post("/posts", newPost);
 postRouter.get("/posts/:id", getSinglePost);
 postRouter.put("/posts/:id", updatePost);
 postRouter.delete("/posts/:id", deletePost);
-postRouter.post("/posts/:id/like", likePostById);
-postRouter.post("/posts/:id/unlike", unLikePostById);
+postRouter.put("/posts/:id/like", likePostById);
+postRouter.put("/posts/:id/unlike", unLikePostById);
 postRouter.get("/analytics/posts", getAllPost);
 postRouter.get("/analytics/posts/top-liked", mostLikedpost);
 

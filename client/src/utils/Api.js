@@ -27,6 +27,12 @@ export async function GetUserList(){
   return res.data;
 
 }
+export async function GetPostList(){
+  const res = await axios.get(`${baseurl}/analytics/posts`);
+  return res.data;
+
+}
+
 export async function UserUpdate(id,data){
   const res = await axios.put(`${baseurl}/users/${id}`,data);
   return res.data;
@@ -35,6 +41,28 @@ export async function UserUpdate(id,data){
 
 export async function SingleUserDelete(id){
   const res = await axios.delete(`${baseurl}/users/${id}`);
+  return res.data;
+
+}
+
+export async function PostUpdate(id,data){
+  const res = await axios.put(`${baseurl}/posts/${id}`,data);
+  return res.data;
+
+}
+export async function SinglePostDelete(id){
+  const res = await axios.delete(`${baseurl}/posts/${id}`);
+  return res.data;
+
+}
+
+export async function addLike(id){
+  const res = await axios.put(`${baseurl}/posts/${id}/like`);
+  return res.data;
+
+}
+export async function disLike(id){
+  const res = await axios.put(`${baseurl}/posts/${id}/unlike`);
   return res.data;
 
 }

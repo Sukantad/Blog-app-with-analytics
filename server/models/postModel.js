@@ -2,7 +2,8 @@ const mongoose = require("mongoose");
 
 const postSchema = new mongoose.Schema(
   {
-    user_id:String,
+     user_id: { type: mongoose.Schema.Types.ObjectId, ref: "user"},
+    
     content: {
       type:String,
       required:true,
@@ -16,6 +17,9 @@ const postSchema = new mongoose.Schema(
       type:Number,
       default:0,
       min:0
+    },
+    author:{
+      type:String
     }
   },
   {

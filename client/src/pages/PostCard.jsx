@@ -6,7 +6,30 @@ import Typography from '@mui/material/Typography';
 import { Box, CardActionArea } from '@mui/material';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
+import { addLike, disLike } from '../utils/Api';
 function PostCard({ data }) {
+ const [update , setUpdate]=React.useState();
+    const handleLike = async (id) => {
+        try {
+            const res = await addLike(id);
+            setUpdate((prev)=>!prev)
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const handleDislike = async (id) => {
+        try {
+            await disLike(id);
+
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    React.useEffect(() => {
+
+    }, [update])
     return (
         <Box width={'50%'} margin={'auto'} marginTop='20px' >
             <Card width={'250px'}>
@@ -25,10 +48,10 @@ function PostCard({ data }) {
                         <Box> Author: - {data.author} </Box>
                         <br />
                         <Typography variant="body2" color="text.secondary" display="flex">
-                            <Box>    <ThumbUpOffAltIcon /></Box>
-                            <Box marginLeft={'10px'}> <ThumbDownOffAltIcon /></Box>
+                            <Box>    <ThumbUpOffAltIcon onClick={() => handleLike(data._id)} /></Box>
+                            <Box marginLeft={'10px'}> <ThumbDownOffAltIcon onClick={() => handleDislike(data._id)} /></Box>
                         </Typography>
-                         <Box> {data.likes}</Box>
+                        <Box> {data.likes}</Box>
                     </CardContent>
                 </CardActionArea>
             </Card>

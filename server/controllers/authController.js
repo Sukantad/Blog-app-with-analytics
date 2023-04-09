@@ -35,6 +35,8 @@ const authController = {
       res.send({
         message: "Register Success!",
         accessToken,
+        Id:  newUser._id
+        
       });
     } catch (err) {
       return res.status(500).send({ message: err.message });

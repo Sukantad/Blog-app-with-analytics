@@ -8,12 +8,13 @@ import UserAnalytics from "../pages/UserAnalytics";
 import PostAnalytics from "../pages/PostAnalytics";
 import CreatePost from "../pages/CreatePost";
 import UserList from "../pages/UserList";
+import PostList from "../pages/PostList";
 
 function AllRoutes() {
   return (
     <div>
       <Routes>
-        {" "}
+       
         <Route
           path="/"
           element={
@@ -22,19 +23,21 @@ function AllRoutes() {
             </PrivateRoute>
           }
         >
-          {" "}
+         
         </Route>
         <Route path="/login" element={<Login />}>
-          {" "}
+          
         </Route>
+
         <Route path="/signup" element={<Signup />}></Route>
-     
-      
+
         <Route path="/analytics/users" element={<UserAnalytics />}></Route>
-        
         <Route path="/analytics/posts" element={<PostAnalytics />}></Route>
+        
         <Route path="/createpost" element={<CreatePost />}></Route>
         <Route path="/userlist" element={<UserList />}></Route>
+        <Route path="/postlist" element={<PostList />}></Route>
+
       </Routes>
     </div>
   );
