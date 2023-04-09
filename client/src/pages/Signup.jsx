@@ -30,6 +30,8 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Signup() {
+    const [email, setEmail] = React.useState('');
+
     const dispatch = useDispatch();
     const Navi=useNavigate();
         const { token } = useSelector((state) => state.AuthState);
@@ -47,7 +49,9 @@ export default function Signup() {
             const res = await axios.post("http://localhost:4000/users", postdata)
             console.log(res.data, "data");
             dispatch(setAuth(res.data.accessToken))
-           
+            if(token){
+        return <Navi to='/'/>
+    }
         
         } catch (error) {
             console.log(error, "while signup")
@@ -55,9 +59,14 @@ export default function Signup() {
 
 
     };
-    if(token){
-        return <Navi to='/'/>
-    }
+    const validateEmail = (value) => {
+        const emailRegex = /\S+@\S+\.\S+/;
+        if (!emailRegex.test(value)) {
+          return 'Invalid email address ';
+        }
+        return '';
+      };
+
 
     return (
         <ThemeProvider theme={theme}>
@@ -96,6 +105,9 @@ export default function Signup() {
                             label="Email Address"
                             name="email"
                             autoComplete="current-email"
+                            onChange={(event) => setEmail(event.target.value)}
+                            error={validateEmail(email) !== ''}
+                            helperText={validateEmail(email)}
 
                         />
 

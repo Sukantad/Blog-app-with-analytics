@@ -30,6 +30,8 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Login() {
+    const [email, setEmail] = useState('');
+
     const dispatch = useDispatch();
     const Navi = useNavigate();
     const { token } = useSelector((state) => state.AuthState);
@@ -45,10 +47,13 @@ export default function Login() {
             const res = await axios.post("http://localhost:4000/login", postdata)
             console.log(res.data, "data");
             dispatch(setAuth(res.data.accessToken))
-            console.log(token, "token")
+           setTimeout(() => {
+             console.log(token, "token")
             if (token) {
                 Navi('/')
             }
+           }, 1000);
+           
 
         } catch (error) {
             console.log(error, "while signup")
@@ -57,7 +62,13 @@ export default function Login() {
 
     };
 
-
+  const validateEmail = (value) => {
+    const emailRegex = /\S+@\S+\.\S+/;
+    if (!emailRegex.test(value)) {
+      return 'Invalid email address ';
+    }
+    return '';
+  };
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
@@ -85,6 +96,9 @@ export default function Login() {
                             name="email"
                             autoComplete="email"
                             autoFocus
+                            onChange={(event) => setEmail(event.target.value)}
+                            error={validateEmail(email) !== ''}
+                            helperText={validateEmail(email)}
                         />
                         <TextField
                             margin="normal"
