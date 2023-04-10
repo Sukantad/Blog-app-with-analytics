@@ -11,9 +11,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+
 import axios from 'axios';
-import { setAuth } from '../Redux/authAction';
+
 function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -32,9 +32,8 @@ const theme = createTheme();
 export default function Login() {
     const [email, setEmail] = useState('');
 
-    const dispatch = useDispatch();
-    const Navi = useNavigate();
-    const { token } = useSelector((state) => state.AuthState);
+
+    const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -46,14 +45,14 @@ export default function Login() {
         try {
             const res = await axios.post("http://localhost:4000/login", postdata)
             console.log(res.data, "data");
-            dispatch(setAuth(res.data.accessToken))
-           setTimeout(() => {
-             console.log(token, "token")
-            if (token) {
-                Navi('/')
+
+            const ss = localStorage.setItem("userId", res?.data.user._id)
+            const userId = localStorage.getItem("userId") || null;
+
+            if (userId) {
+                navigate('/')
             }
-           }, 1000);
-           
+
 
         } catch (error) {
             console.log(error, "while signup")
@@ -62,13 +61,13 @@ export default function Login() {
 
     };
 
-  const validateEmail = (value) => {
-    const emailRegex = /\S+@\S+\.\S+/;
-    if (!emailRegex.test(value)) {
-      return 'Invalid email address ';
-    }
-    return '';
-  };
+    const validateEmail = (value) => {
+        const emailRegex = /\S+@\S+\.\S+/;
+        if (!emailRegex.test(value)) {
+            return 'Invalid email address ';
+        }
+        return '';
+    };
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">

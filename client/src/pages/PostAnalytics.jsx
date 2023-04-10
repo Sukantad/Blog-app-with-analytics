@@ -20,7 +20,7 @@ function PostAnalytics() {
     }, [])
 
     return (
-        <Box width={'60%'} margin={'auto'}>
+        <Box width={{ xs:"80%", sm: "60%", md: "70%", lg: "60%", xl: "60%" }} margin={'auto'}>
             <Typography textAlign={'center'} fontSize={'20px'}> Total Posts - {totalPosts?.length}</Typography>
             {
                 totalPosts?.map((data) => (

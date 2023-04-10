@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import axios from 'axios'
 import { addLike, createPost, disLike, getAllPost } from '../utils/Api';
 import { Box, Button, Card, CardContent, CardMedia, Input, Modal, TextField, Typography } from '@mui/material';
@@ -11,7 +11,13 @@ import { CardActionArea } from '@mui/material';
 function Home() {
     const [post, setPost] = useState([]);
     const [update, setUpdate] = React.useState(false);
-
+    var count=1;
+    function abc() {
+      
+          count++; 
+           console.log("hello word",count);
+    }
+    abc();
 
     async function FetchAllPost() {
         var data = await getAllPost();
@@ -37,7 +43,7 @@ function Home() {
         }
     };
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         FetchAllPost();
     }, [update])
 

@@ -10,15 +10,15 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: 250,
     bgcolor: 'background.paper',
     boxShadow: 24,
     p: 4,
 };
 function PostList() {
-    const [totalUser,setTotalUsers]=useState();
+    const [totalUser, setTotalUsers] = useState();
     const [form, setForm] = useState();
-    const [update , setUpdate]=useState(false);
+    const [update, setUpdate] = useState(false);
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -103,7 +103,7 @@ function PostList() {
                 </Box>
             </Modal>
 
-          {totalUser?.length?  <TableContainer component={Paper} >
+            {totalUser?.length ? <TableContainer component={Paper} >
                 <Table aria-label="a dense table">
                     <TableHead  >
                         <TableRow>
@@ -134,7 +134,7 @@ function PostList() {
                     </TableBody>
                 </Table>
             </TableContainer>
-            :<Typography textAlign={'center'} fontSize={'20px'} mt={'50px'}> No Posts </Typography>}
+                : <Typography textAlign={'center'} fontSize={'20px'} mt={'50px'}> No Posts </Typography>}
 
         </Box>
     );

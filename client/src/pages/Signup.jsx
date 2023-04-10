@@ -12,8 +12,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios'
-import { useDispatch, useSelector } from 'react-redux';
-import { setAuth } from '../Redux/authAction';
+
 function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -32,7 +31,7 @@ const theme = createTheme();
 export default function Signup() {
     const [email, setEmail] = React.useState('');
 
-    const Navi = useNavigate();
+    const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
 
@@ -51,7 +50,7 @@ export default function Signup() {
             const userId = localStorage.getItem("userId") || null;
 
             if (userId) {
-                return <Navi to='/' />
+                navigate('/')
             }
 
         } catch (error) {

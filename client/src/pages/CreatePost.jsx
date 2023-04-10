@@ -5,29 +5,24 @@ import { Box, Button, Input, Modal, TextField, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom';
 
 const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: "50%",
     bgcolor: 'background.paper',
     boxShadow: 24,
     p: 4,
     padding: "20px",
     border: "1px solid grey",
     borderRadius: "20px"
+
 };
 
 function CreatePost() {
     const userId = localStorage.getItem("userId") || null;
-    console.log(userId, "id")
     const navigate = useNavigate();
     const [postInput, setPostInput] = useState({ user_id: userId, content: "", image: "" });
     const [photo, setPhoto] = useState("")
 
 
     async function CreateSinglePost(data) {
-        
+
         try {
             var res = await createPost(data);
             console.log(res.data, "res")
@@ -53,17 +48,17 @@ function CreatePost() {
             CreateSinglePost(postInput)
             navigate('/')
         } catch (error) {
-               console.log(error);
+            console.log(error);
         }
 
     }
 
-    const { content,user_id } = postInput;
+    const { content, user_id } = postInput;
     return (
         <div>
-            <Box style={style}>
+            <Box style={style} width={{ sx: "70%", sm: "70%", md: "50%", lg: "40%", xl: "50%" }} mt='25px' margin={'auto'} p='15px' >
                 <form onSubmit={handleSubmit}>
-                   
+
                     <Input type='file'
                         id="image"
                         label="Image"

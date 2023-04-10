@@ -14,7 +14,7 @@ function UserAnalytics() {
     }, [])
 
     return (
-        <Box width={'60%'} margin={'auto'}>
+        <Box width={{xs:"90%" , sm: "90%", md: "70%", lg: "60%", xl: "50%" }} margin={'auto'}>
             <Typography textAlign={'center'} fontSize={'20px'}> Total Users - {totalUser?.length}</Typography>
 
             <TableContainer component={Paper} >

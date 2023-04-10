@@ -6,9 +6,9 @@ const PrivateRoute = ({ children }) => {
    const userId = localStorage.getItem("userId") || null;
 
 
-  // if (userId) {
-  //   return <Navigate to="/signup" />;
-  // }
+  if (!userId) {
+    return <Navigate to="/signup" />;
+  }
   return children;
 };
 
