@@ -13,12 +13,13 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link, useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
+import { Alert } from "@mui/material";
 
 function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
             {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
+            <Link color="inherit" href="https://mui.com/" style={{textdecoration:"none", color:"black"}}>
                 Your Website
             </Link>{' '}
             {new Date().getFullYear()}
@@ -30,8 +31,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Login() {
-    const [email, setEmail] = useState('');
-
+    const [emailError, setEmailError] = useState(false);
 
     const navigate = useNavigate();
 
@@ -43,7 +43,8 @@ export default function Login() {
             password: data.get('password'),
         }
         try {
-            const res = await axios.post("http://localhost:4000/login", postdata)
+          
+            const res = await axios.post("https://adobe-assignment-production.up.railway.app/login", postdata)
             console.log(res.data, "data");
 
             const ss = localStorage.setItem("userId", res?.data.user._id)
@@ -55,19 +56,20 @@ export default function Login() {
 
 
         } catch (error) {
-            console.log(error, "while signup")
+          alert("Wrong Credentials")
+             console.log(error, "while signup")
         }
 
 
     };
-
-    const validateEmail = (value) => {
+    const handleEmailChange = (event) => {
+        const newEmail = event.target.value;
+    
+        // validate email
         const emailRegex = /\S+@\S+\.\S+/;
-        if (!emailRegex.test(value)) {
-            return 'Invalid email address ';
-        }
-        return '';
-    };
+        setEmailError(!emailRegex.test(newEmail));
+      };
+
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
@@ -85,7 +87,7 @@ export default function Login() {
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <Box component="form" onSubmit={handleSubmit}  sx={{ mt: 1 }}>
                         <TextField
                             margin="normal"
                             required
@@ -95,9 +97,9 @@ export default function Login() {
                             name="email"
                             autoComplete="email"
                             autoFocus
-                            onChange={(event) => setEmail(event.target.value)}
-                            error={validateEmail(email) !== ''}
-                            helperText={validateEmail(email)}
+                            onChange={handleEmailChange}
+                            error={emailError}
+                            helperText={emailError ? 'Please enter a valid email address' : ''}
                         />
                         <TextField
                             margin="normal"

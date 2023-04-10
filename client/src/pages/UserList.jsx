@@ -51,7 +51,6 @@ function UserList() {
 
     };
  const handleDelete=async(e)=>{
-         console.log(e,"hlw")
    await SingleUserDelete(e);
    fetchAllUsers();
  }
@@ -60,7 +59,7 @@ function UserList() {
         fetchAllUsers();
     }, [])
     return (
-        <Box width={'90%'} margin={'auto'}>
+        <Box width={'80%'} margin={'auto'}>
             <Typography textAlign={'center'} fontSize={'20px'}> All Users</Typography>
 
             <Modal
@@ -117,11 +116,11 @@ function UserList() {
             </Modal>
 
             <TableContainer component={Paper} >
-                <Table aria-label="a dense table">
+                <Table aria-label="a dense table" >
                     <TableHead  >
                         <TableRow>
                             <TableCell>Name</TableCell>
-                            <TableCell align="right">Email</TableCell>
+                            <TableCell align="right" >Email</TableCell>
                             <TableCell align="right">Edit</TableCell>
                             <TableCell align="right">Delete</TableCell>
 
@@ -131,9 +130,9 @@ function UserList() {
                         {totalUser?.map((ele) => (
                             <TableRow
                                 key={ele?.name}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                               // sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
-                                <TableCell component="th" scope="row">
+                                <TableCell component="th" >
                                     {ele?.name}
                                 </TableCell>
                                 <TableCell align="right">{ele?.email}</TableCell>

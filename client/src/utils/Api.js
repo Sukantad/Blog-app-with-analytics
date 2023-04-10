@@ -1,6 +1,6 @@
 import axios from "axios";
 
-let baseurl = "http://localhost:4000";
+let baseurl = "https://adobe-assignment-production.up.railway.app";
 export async function getAllPost() {
   const res = await axios.get(`${baseurl}/analytics/posts`);
   return res.data;

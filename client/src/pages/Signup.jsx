@@ -3,8 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -29,7 +27,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Signup() {
-    const [email, setEmail] = React.useState('');
+    const [emailError, setEmailError] = React.useState(false);
 
     const navigate = useNavigate();
 
@@ -44,7 +42,7 @@ export default function Signup() {
             bio: data.get('bio')
         }
         try {
-            const res = await axios.post("http://localhost:4000/users", postdata)
+            const res = await axios.post("https://adobe-assignment-production.up.railway.app/users", postdata)
             console.log(res.data, "data");
             const ss = localStorage.setItem("userId", res?.data.Id)
             const userId = localStorage.getItem("userId") || null;
@@ -59,14 +57,13 @@ export default function Signup() {
 
 
     };
-    const validateEmail = (value) => {
+    const handleEmailChange = (event) => {
+        const newEmail = event.target.value;
+    
+        // validate email
         const emailRegex = /\S+@\S+\.\S+/;
-        if (!emailRegex.test(value)) {
-            return 'Invalid email address ';
-        }
-        return '';
-    };
-
+        setEmailError(!emailRegex.test(newEmail));
+      };
 
     return (
         <ThemeProvider theme={theme}>
@@ -85,7 +82,7 @@ export default function Signup() {
                     <Typography component="h1" variant="h5">
                         Sign Up
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <Box component="form" onSubmit={handleSubmit}  sx={{ mt: 1 }}>
                         <TextField
                             margin="normal"
                             required
@@ -106,9 +103,9 @@ export default function Signup() {
                             label="Email Address"
                             name="email"
                             autoComplete="current-email"
-                            onChange={(event) => setEmail(event.target.value)}
-                            error={validateEmail(email) !== ''}
-                            helperText={validateEmail(email)}
+                            onChange={handleEmailChange}
+                            error={emailError}
+                            helperText={emailError ? 'Please enter a valid email address' : ''}
 
                         />
 

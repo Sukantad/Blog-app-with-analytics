@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { GetPostList, GetUserList, PostUpdate, SinglePostDelete, SingleUserDelete, UserUpdate } from '../utils/Api';
+import { GetPostList,   PostUpdate,   SinglePostDelete, SingleUserDelete,  } from '../utils/Api';
 import { Box, Button, Grid, Modal, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';

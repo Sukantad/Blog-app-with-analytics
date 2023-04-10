@@ -61,27 +61,33 @@ function Navbar() {
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                             <Link to='/' style={{ textDecoration: 'none', color: 'white' }}>   Social friends </Link>
                         </Typography>
-                      
-                            <Link to="/userlist" style={{ textDecoration: 'none', color: 'white', display: isSmallScreen ? "none" : "flex" }}> <Button color="inherit" >  User List </Button></Link>
-                            <Link to="/postlist" style={{ textDecoration: 'none', color: 'white', display: isSmallScreen ? "none" : "flex" }}> <Button color="inherit" >  Post List </Button></Link>
-                            <Link to="/analytics/posts" style={{ textDecoration: 'none', color: 'white', display: isSmallScreen ? "none" : "flex" }}> <Button color="inherit" >  Post Analytics </Button></Link>
-                            <Link to="/analytics/users" style={{ textDecoration: 'none', color: 'white', display: isSmallScreen ? "none" : "flex" }}> <Button color="inherit" >  User Analytics </Button></Link>
-                      
+
+                        <Link to="/userlist" style={{ textDecoration: 'none', color: 'white', display: isSmallScreen ? "none" : "flex" }}> <Button color="inherit" >  User List </Button></Link>
+
+                        <Link to="/postlist" style={{ textDecoration: 'none', color: 'white', display: isSmallScreen ? "none" : "flex" }}> <Button color="inherit" >  Post List </Button></Link>
+                        <Link to="/analytics/posts" style={{ textDecoration: 'none', color: 'white', display: isSmallScreen ? "none" : "flex" }}> <Button color="inherit" >  Post Analytics </Button></Link>
+                        <Link to="/analytics/users" style={{ textDecoration: 'none', color: 'white', display: isSmallScreen ? "none" : "flex" }}> <Button color="inherit" >  User Analytics </Button></Link>
+
 
                     </Toolbar>
                 </AppBar>
                 <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
                     <div
-                        style={{ width: "150px" }}
+                        style={{ width: "300px" }}
                         role="presentation"
                         onClick={toggleDrawer(anchor, false)}
                         onKeyDown={toggleDrawer(anchor, false)}
                     >
-                        <Link to="/userlist" style={{ textDecoration: 'none', }}> <Button color="inherit" >  User List </Button></Link>
-                        <Link to="/postlist" style={{ textDecoration: 'none' }}> <Button color="inherit" >  Post List </Button></Link>
 
-                        <Link to="/analytics/posts" style={{ textDecoration: 'none' }}> <Button color="inherit" >  Post Analytics </Button></Link>
-                        <Link to="/analytics/users" style={{ textDecoration: 'none' }}> <Button color="inherit" >  User Analytics </Button></Link>
+                        <Box bgcolor={'#1976D2'}  width={'200px'} m={'auto'}mb={'15px'} borderRadius={'8px'} mt="30px">   <Link to="/userlist" style={{ textDecoration: 'none', color: 'white',textAlign:'center' }}> <Button color="inherit" >  User List </Button></Link>
+                        </Box>
+                        <Box bgcolor={'#1976D2'}  width={'200px'} m={'auto'}mb={'15px'} borderRadius={'8px'}>    <Link to="/postlist" style={{ textDecoration: 'none', color: 'white' }}> <Button color="inherit" >  Post List </Button></Link>
+                        </Box>
+
+                        <Box bgcolor={'#1976D2'}width={'200px'} m={'auto'}mb={'15px'} borderRadius={'8px'}>  <Link to="/analytics/posts" style={{ textDecoration: 'none',color:'white' }}> <Button color="inherit" >  Post Analytics </Button></Link>
+                        </Box>
+                        <Box bgcolor={'#1976D2'}width={'200px'} m={'auto'}mb={'15px'} borderRadius={'8px'}>   <Link to="/analytics/users" style={{ textDecoration: 'none',color:"white" }}> <Button color="inherit" >  User Analytics </Button></Link>
+                        </Box>
                         <List>
 
                             <ListItem button>

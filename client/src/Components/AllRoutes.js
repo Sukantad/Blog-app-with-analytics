@@ -26,12 +26,44 @@ function AllRoutes() {
 
         <Route path="/signup" element={<Signup />}></Route>
 
-        <Route path="/analytics/users" element={<UserAnalytics />}></Route>
-        <Route path="/analytics/posts" element={<PostAnalytics />}></Route>
+        <Route
+          path="/analytics/users"
+          element={
+            <PrivateRoute>
+              {" "}
+              <UserAnalytics />
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/analytics/posts"
+          element={
+            <PrivateRoute>
+              {" "}
+              <PostAnalytics />
+            </PrivateRoute>
+          }
+        ></Route>
 
         <Route path="/createpost" element={<CreatePost />}></Route>
-        <Route path="/userlist" element={<UserList />}></Route>
-        <Route path="/postlist" element={<PostList />}></Route>
+        <Route
+          path="/userlist"
+          element={
+            <PrivateRoute>
+              {" "}
+              <UserList />
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/postlist"
+          element={
+            <PrivateRoute>
+              {" "}
+              <PostList />
+            </PrivateRoute>
+          }
+        ></Route>
       </Routes>
     </div>
   );
