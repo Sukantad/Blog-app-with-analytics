@@ -11,14 +11,7 @@ import { CardActionArea } from '@mui/material';
 function Home() {
     const [post, setPost] = useState([]);
     const [update, setUpdate] = React.useState(false);
-    var count=1;
-    function abc() {
-      
-          count++; 
-           console.log("hello word",count);
-    }
-    abc();
-
+   
     async function FetchAllPost() {
         var data = await getAllPost();
         setPost(data.post);

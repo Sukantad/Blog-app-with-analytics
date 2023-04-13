@@ -22,7 +22,7 @@ function UserList() {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const [totalUser, setTotalUsers] = useState();
-   
+
 
     async function fetchAllUsers() {
         const data = await GetUserList();
@@ -43,23 +43,23 @@ function UserList() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-       await UserUpdate(form._id, form);
-       fetchAllUsers();
-       setOpen(false)
-  
+        await UserUpdate(form._id, form);
+        fetchAllUsers();
+        setOpen(false)
+
 
 
     };
- const handleDelete=async(e)=>{
-   await SingleUserDelete(e);
-   fetchAllUsers();
- }
+    const handleDelete = async (e) => {
+        await SingleUserDelete(e);
+        fetchAllUsers();
+    }
 
     useEffect(() => {
         fetchAllUsers();
     }, [])
     return (
-        <Box width={'80%'} margin={'auto'}>
+        <Box width={{ xs: "90%", sm: "60%", md: "60%", lg: "60" }} margin={'auto'}>
             <Typography textAlign={'center'} fontSize={'20px'}> All Users</Typography>
 
             <Modal
@@ -130,16 +130,16 @@ function UserList() {
                         {totalUser?.map((ele) => (
                             <TableRow
                                 key={ele?.name}
-                               // sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            // sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                                 <TableCell component="th" >
                                     {ele?.name}
                                 </TableCell>
                                 <TableCell align="right">{ele?.email}</TableCell>
 
-                                <TableCell align="right" > <Link>  <EditIcon  onClick={() => { handleOpen(); handleUpdate(ele) }} /></Link></TableCell>
+                                <TableCell align="right" > <Link>  <EditIcon onClick={() => { handleOpen(); handleUpdate(ele) }} /></Link></TableCell>
 
-                                <TableCell align="right"><Link>  <DeleteIcon onClick={()=>handleDelete(ele._id)}/></Link></TableCell>
+                                <TableCell align="right"><Link>  <DeleteIcon onClick={() => handleDelete(ele._id)} /></Link></TableCell>
 
                             </TableRow>
                         ))}

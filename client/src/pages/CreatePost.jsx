@@ -45,7 +45,7 @@ function CreatePost() {
             data.append("upload_preset", "social_media");
             const res = photo && await axios.post("https://api.cloudinary.com/v1_1/dz84rrvfb/image/upload", data)
             postInput.image = res?.data?.secure_url
-            CreateSinglePost(postInput)
+            await CreateSinglePost(postInput)
             navigate('/')
         } catch (error) {
             console.log(error);

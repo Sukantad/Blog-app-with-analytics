@@ -14,7 +14,7 @@ function UserAnalytics() {
     }, [])
 
     return (
-        <Box width={{xs:"90%" , sm: "90%", md: "70%", lg: "60%", xl: "50%" }} margin={'auto'}>
+        <Box width={{ xs: "90%", sm: "90%", md: "70%", lg: "60%", xl: "50%" }} margin={'auto'}>
             <Typography textAlign={'center'} fontSize={'20px'}> Total Users - {totalUser?.length}</Typography>
 
             <TableContainer component={Paper} >
@@ -29,17 +29,17 @@ function UserAnalytics() {
                     </TableHead>
                     <TableBody>
                         {totalUser?.map((ele) => (
-                            <TableRow
+                            <> {ele?.user?.name ? <TableRow
                                 key={ele?.user?.name}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                                 <TableCell component="th" scope="row">
-                                    {ele?.user.name}
+                                    {ele?.user?.name}
                                 </TableCell>
-                                <TableCell align="right">{ele?.user.email}</TableCell>
+                                <TableCell align="right">{ele?.user?.email}</TableCell>
                                 <TableCell align="right">{ele?.totalPosts}</TableCell>
 
-                            </TableRow>
+                            </TableRow> : ""}</>
                         ))}
                     </TableBody>
                 </Table>

@@ -11,8 +11,7 @@ function PostAnalytics() {
     const [totalPosts, setTotalPosts] = useState();
     async function fetchAnalytics() {
         const data = await getPostAnalytics();
-        console.log(data.LikedPosts);
-        setTotalPosts(data.LikedPosts)
+        setTotalPosts(data?.LikedPosts)
     }
 
     useEffect(() => {
@@ -27,22 +26,22 @@ function PostAnalytics() {
                     <Card width={'250px'} style={{ marginTop: "15px" }}>
                         <CardActionArea >
                             <Typography gutterBottom variant="h" p={'15px'} component="div">
-                                {data.content}
+                                {data?.content}
                             </Typography>
                             {data?.image != null ? <CardMedia
                                 component="img"
                                 height="250px"
 
-                                image={data.image}
+                                image={data?.image}
                                 alt="green iguana"
                             /> : ""}
                             <CardContent>
-                                <Box> Author: - {data.user_id.name} </Box>
+                                <Box> Author: - {data?.user_id?.name} </Box>
                                 <br />
                                 <Typography variant="body2" color="text.secondary" display="flex">
 
                                     <Box>    <ThumbUpOffAltIcon /></Box>
-                                    <Box marginLeft={'10px'}> {data.likes}</Box>
+                                    <Box marginLeft={'10px'}> {data?.likes}</Box>
 
                                 </Typography>
 
