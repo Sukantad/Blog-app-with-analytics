@@ -19,7 +19,7 @@
  - use npm i 
  - npm start 
 
- ### Here are some Screenshoot of my life social media web app
+ ### Here are some Screenshot of my life social media web app
 
 
 
