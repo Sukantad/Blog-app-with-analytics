@@ -14,7 +14,7 @@
 - MongoDB
 - Cloudniary ( for storing images)
 
-### For locally fun this code 
+### For locally run this code 
  - clone this repo
  - use npm i 
  - npm start 
