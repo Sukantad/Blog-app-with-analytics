@@ -1,7 +1,7 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import axios from 'axios'
 import { addLike, createPost, disLike, getAllPost } from '../utils/Api';
-import { Box, Button, Card, CardContent, CardMedia, Input, Modal, TextField, Typography } from '@mui/material';
+import { Box, Button, Card, CardContent, CardMedia, Input, Modal, Skeleton, TextField, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
@@ -11,10 +11,13 @@ import { CardActionArea } from '@mui/material';
 function Home() {
     const [post, setPost] = useState([]);
     const [update, setUpdate] = React.useState(false);
-   
+    const [loading, setLoading] = useState(false);
+
     async function FetchAllPost() {
+        setLoading(true);
         var data = await getAllPost();
         setPost(data.post);
+        setLoading(false);
 
     }
 
@@ -47,7 +50,8 @@ function Home() {
         <Box margin='20px'>
             <Button variant="contained" > <Link to={'/createpost'} style={{ textDecoration: 'none', color: "white" }}> Create a post </Link></Button>
 
-            {
+            {!loading ? <>   {
+
                 post?.map((data, i) => (
                     <Box width={{ sm: "90%", md: "70%", lg: "60%", xl: "50%" }} margin={'auto'} marginTop='20px' key={Math.random() + i}>
                         <Card width={'250px'}>
@@ -75,7 +79,45 @@ function Home() {
                         </Card>
                     </Box>
                 ))
-            }
+            }</> : <>
+
+                <Skeleton />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+                
+
+                
+
+              
+            </>}
 
         </Box>
     );

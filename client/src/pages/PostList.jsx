@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { GetPostList,   PostUpdate,   SinglePostDelete, SingleUserDelete,  } from '../utils/Api';
-import { Box, Button, Grid, Modal, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@mui/material';
+import { GetPostList, PostUpdate, SinglePostDelete, SingleUserDelete, } from '../utils/Api';
+import { Box, Button, Grid, LinearProgress, Modal, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
@@ -22,12 +22,30 @@ function PostList() {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const [loading, setLoading] = useState(false);
+    const [progress, setProgress] = React.useState(0);
 
+    React.useEffect(() => {
+        const timer = setInterval(() => {
+            setProgress((oldProgress) => {
+                if (oldProgress === 100) {
+                    return 0;
+                }
+                const diff = Math.random() * 10;
+                return Math.min(oldProgress + diff, 100);
+            });
+        }, 30);
 
+        return () => {
+            clearInterval(timer);
+        };
+    }, []);
+    
     async function fetchAllUsers() {
+        setLoading(true);
         const data = await GetPostList();
         setTotalUsers(data.post)
-        console.log(data.post, "pd")
+        setLoading(false);
     }
 
     function handleUpdate(e) {
@@ -51,7 +69,7 @@ function PostList() {
 
     };
     const handleDelete = async (e) => {
-        console.log(e, "hlw")
+
         await SinglePostDelete(e);
         fetchAllUsers();
     }
@@ -102,40 +120,42 @@ function PostList() {
                     </Box>
                 </Box>
             </Modal>
-
-            {totalUser?.length ? <TableContainer component={Paper} >
-                <Table aria-label="a dense table">
-                    <TableHead  >
-                        <TableRow>
-                            <TableCell>Author</TableCell>
-                            <TableCell align="right">Content</TableCell>
-                            <TableCell align="right">Edit</TableCell>
-                            <TableCell align="right">Delete</TableCell>
-
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {totalUser?.map((ele) => (
-                            <TableRow
-                                key={ele?.author}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            >
-                                <TableCell component="th" scope="row">
-                                    {ele?.author}
-                                </TableCell>
-                                <TableCell align="right">{ele?.content}</TableCell>
-
-                                <TableCell align="right" > <Link>  <EditIcon onClick={() => { handleOpen(); handleUpdate(ele) }} /></Link></TableCell>
-
-                                <TableCell align="right"><Link>  <DeleteIcon onClick={() => handleDelete(ele._id)} /></Link></TableCell>
+            {!loading ? <>
+                {totalUser?.length ? <TableContainer component={Paper} >
+                    <Table aria-label="a dense table">
+                        <TableHead  >
+                            <TableRow>
+                                <TableCell>Author</TableCell>
+                                <TableCell align="right">Content</TableCell>
+                                <TableCell align="right">Edit</TableCell>
+                                <TableCell align="right">Delete</TableCell>
 
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-                : <Typography textAlign={'center'} fontSize={'20px'} mt={'50px'}> No Posts </Typography>}
+                        </TableHead>
+                        <TableBody>
+                            {totalUser?.map((ele) => (
+                                <TableRow
+                                    key={ele?.author}
+                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                >
+                                    <TableCell component="th" scope="row">
+                                        {ele?.author}
+                                    </TableCell>
+                                    <TableCell align="right">{ele?.content}</TableCell>
 
+                                    <TableCell align="right" > <Link>  <EditIcon onClick={() => { handleOpen(); handleUpdate(ele) }} /></Link></TableCell>
+
+                                    <TableCell align="right"><Link>  <DeleteIcon onClick={() => handleDelete(ele._id)} /></Link></TableCell>
+
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                    : <Typography textAlign={'center'} fontSize={'20px'} mt={'50px'}> No Posts </Typography>}
+            </> : <Box sx={{ width: '100%' }}>
+                <LinearProgress variant="determinate" sx={{ height: '25px' }} value={progress} />
+            </Box>}
         </Box>
     );
 

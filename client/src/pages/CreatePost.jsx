@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios'
 import { createPost, getAllPost } from '../utils/Api';
-import { Box, Button, Input, Modal, TextField, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Input, Modal, TextField, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const style = {
@@ -16,6 +16,7 @@ const style = {
 
 function CreatePost() {
     const userId = localStorage.getItem("userId") || null;
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const [postInput, setPostInput] = useState({ user_id: userId, content: "", image: "" });
     const [photo, setPhoto] = useState("")
@@ -24,7 +25,9 @@ function CreatePost() {
     async function CreateSinglePost(data) {
 
         try {
+            setLoading(true);
             var res = await createPost(data);
+            setLoading(false);
             console.log(res.data, "res")
         } catch (error) {
             console.log(error);
@@ -40,12 +43,14 @@ function CreatePost() {
     async function handleSubmit(event) {
         event.preventDefault();
         try {
+            photo && setLoading(true);
             const data = new FormData();
             data.append("file", photo);
             data.append("upload_preset", "social_media");
             const res = photo && await axios.post("https://api.cloudinary.com/v1_1/dz84rrvfb/image/upload", data)
             postInput.image = res?.data?.secure_url
             await CreateSinglePost(postInput)
+            setLoading(false);
             navigate('/')
         } catch (error) {
             console.log(error);
@@ -83,9 +88,13 @@ function CreatePost() {
                         required
                         style={{ marginTop: "15px" }}
                     />
-                    <Button style={{ marginTop: "15px" }} type='submit' variant="contained" color="primary" margin='auto'>
+                    {!loading ? <Button style={{ marginTop: "15px" }} type='submit' variant="contained" color="primary" margin='auto'>
                         Post
-                    </Button>
+                    </Button> :
+                        <Box marginTop={'15px'}>
+                            <CircularProgress disableShrink />
+                        </Box>}
+
                 </form>
             </Box>
         </div>

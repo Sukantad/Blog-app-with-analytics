@@ -19,7 +19,7 @@ function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
             {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/" style={{textdecoration:"none", color:"black"}}>
+            <Link color="inherit" href="https://mui.com/" style={{ textdecoration: "none", color: "black" }}>
                 Your Website
             </Link>{' '}
             {new Date().getFullYear()}
@@ -43,7 +43,7 @@ export default function Login() {
             password: data.get('password'),
         }
         try {
-          
+
             const res = await axios.post("https://adobe-assignment-production.up.railway.app/login", postdata)
             console.log(res.data, "data");
 
@@ -56,19 +56,19 @@ export default function Login() {
 
 
         } catch (error) {
-          alert("Wrong Credentials")
-             console.log(error, "while signup")
+            alert(error?.response?.data?.message);
+            console.log(error, "while signup")
         }
 
 
     };
     const handleEmailChange = (event) => {
         const newEmail = event.target.value;
-    
+
         // validate email
         const emailRegex = /\S+@\S+\.\S+/;
         setEmailError(!emailRegex.test(newEmail));
-      };
+    };
 
     return (
         <ThemeProvider theme={theme}>
@@ -87,7 +87,7 @@ export default function Login() {
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit}  sx={{ mt: 1 }}>
+                    <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
                         <TextField
                             margin="normal"
                             required

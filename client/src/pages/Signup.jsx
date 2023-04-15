@@ -10,6 +10,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios'
+import { Alert, Snackbar } from '@mui/material';
 
 function Copyright(props) {
     return (
@@ -52,18 +53,26 @@ export default function Signup() {
             }
 
         } catch (error) {
-            console.log(error, "while signup")
+            alert(error?.response?.data?.message);
+            return <>
+                <Snackbar autoHideDuration={6000} >
+                    <Alert severity="success" sx={{ width: '100%' }}>
+                        This is a success message!
+                    </Alert>
+                </Snackbar> </>
+
+            console.log(error?.response?.data?.message, "while signup")
         }
 
 
     };
     const handleEmailChange = (event) => {
         const newEmail = event.target.value;
-    
+
         // validate email
         const emailRegex = /\S+@\S+\.\S+/;
         setEmailError(!emailRegex.test(newEmail));
-      };
+    };
 
     return (
         <ThemeProvider theme={theme}>
@@ -82,7 +91,7 @@ export default function Signup() {
                     <Typography component="h1" variant="h5">
                         Sign Up
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit}  sx={{ mt: 1 }}>
+                    <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
                         <TextField
                             margin="normal"
                             required
