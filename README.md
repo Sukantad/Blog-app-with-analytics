@@ -14,12 +14,12 @@
 - MongoDB
 - Cloudniary ( for storing images)
 
-### For locally fun this code 
+### For locally run this code 
  - clone this repo
  - use npm i 
  - npm start 
 
- ### Here are some Screenshoot of my life social media web app
+ ### Here are some Screenshot of my life social media web app
 
 
 
