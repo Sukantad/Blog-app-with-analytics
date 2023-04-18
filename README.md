@@ -1,4 +1,5 @@
-# Adobe Assignment
+# Blog app with analytics
+
 
 ### This is a small social media web app here user can post images, and content, & they can update their post and user.
 
