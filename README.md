@@ -3,7 +3,7 @@
 
 ### This is a small social media web app here user can post images, and content, & they can update their post and user.
 
-- Live link- https://adobe-assignment-one.vercel.app
+- Live link- https://blog-with-analytics.vercel.app
 - Backend api live link - https://drab-pink-octopus-cape.cyclic.app
 
 
