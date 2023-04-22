@@ -54,12 +54,12 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-const getTopActiveUsers = async (req, res) => {
-  let mostactiveUsers = await PostModel.aggregate([
-    { $group: { _id: "$user_id", count: { $sum: 1 } } },
-    { $sort: { count: -1 } },
-    { $limit: 5 },
-  ]);
+  const getTopActiveUsers = async (req, res) => {
+    let mostactiveUsers = await PostModel.aggregate([
+      { $group: { _id: "$user_id", count: { $sum: 1 } } },
+      { $sort: { count: -1 } },
+      { $limit: 5 },
+    ]);
 
   let arr = [];
 
