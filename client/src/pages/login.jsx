@@ -44,7 +44,7 @@ export default function Login() {
         }
         try {
 
-            const res = await axios.post("https://adobe-assignment-production.up.railway.app/login", postdata)
+            const res = await axios.post("https://drab-pink-octopus-cape.cyclic.app/login", postdata)
             console.log(res.data, "data");
 
             const ss = localStorage.setItem("userId", res?.data.user._id)

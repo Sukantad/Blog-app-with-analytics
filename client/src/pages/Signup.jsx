@@ -43,7 +43,7 @@ export default function Signup() {
             bio: data.get('bio')
         }
         try {
-            const res = await axios.post("https://adobe-assignment-production.up.railway.app/users", postdata)
+            const res = await axios.post("https://drab-pink-octopus-cape.cyclic.app/users", postdata)
             console.log(res.data, "data");
             const ss = localStorage.setItem("userId", res?.data.Id)
             const userId = localStorage.getItem("userId") || null;
